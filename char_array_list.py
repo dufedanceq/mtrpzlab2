@@ -1,5 +1,6 @@
 from typing import List as PyList, Union
 
+
 class CharArrayList:
 
     def __init__(self, initial_elements: Union[PyList[str], str, None] = None):
@@ -12,11 +13,15 @@ class CharArrayList:
                 for char_element in initial_elements:
                     self.append(char_element)
             else:
-                raise TypeError("Initial elements must be a list of characters or a string.")
+                raise TypeError(
+                    "Initial elements must be a list of characters or a string."
+                )
 
     def _validate_char(self, element: str) -> None:
         if not isinstance(element, str) or len(element) != 1:
-            raise TypeError(f"Element '{element}' must be a single character (str of length 1).")
+            raise TypeError(
+                f"Element '{element}' must be a single character (str of length 1)."
+            )
 
     def _validate_index(self, index: int, for_insertion: bool = False) -> None:
         if not isinstance(index, int):
@@ -24,12 +29,16 @@ class CharArrayList:
         current_length = self.length()
         if for_insertion:
             if not (0 <= index <= current_length):
-                raise IndexError(f"Index {index} out of bounds for insertion. List length is {current_length}.")
+                raise IndexError(
+                    f"Index {index} out of bounds for insertion. List length is {current_length}."
+                )
         else:
             if current_length == 0:
-                 raise IndexError(f"Index {index} out of bounds. List is empty.")
+                raise IndexError(f"Index {index} out of bounds. List is empty.")
             if not (0 <= index < current_length):
-                raise IndexError(f"Index {index} out of bounds. Valid range is 0 to {current_length - 1}.")
+                raise IndexError(
+                    f"Index {index} out of bounds. Valid range is 0 to {current_length - 1}."
+                )
 
     def length(self) -> int:
         return len(self._data)
@@ -55,11 +64,11 @@ class CharArrayList:
 
     def get(self, index: int) -> str:
         if self.length() == 0:
-             raise IndexError("Cannot get from an empty list.")
+            raise IndexError("Cannot get from an empty list.")
         self._validate_index(index)
         return self._data[index]
 
-    def clone(self) -> 'CharArrayList':
+    def clone(self) -> "CharArrayList":
         new_list = CharArrayList()
         for item in self._data:
             new_list.append(item)
@@ -85,7 +94,7 @@ class CharArrayList:
     def clear(self) -> None:
         self._data = []
 
-    def extend(self, elements: 'CharArrayList') -> None:
+    def extend(self, elements: "CharArrayList") -> None:
         if not isinstance(elements, CharArrayList):
             raise TypeError("Argument must be an instance of CharArrayList.")
         for i in range(elements.length()):
